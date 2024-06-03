@@ -15,6 +15,7 @@ const PhoneBookSchema = mongoose.Schema({
 
 // model creation 
 
-const PhoneBook = mongoose.model('data',PhoneBookSchema)
+
+const PhoneBook = mongoose.model('datas',PhoneBookSchema)
 
 module.exports = PhoneBook

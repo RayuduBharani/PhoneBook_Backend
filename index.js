@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const PhoneBook = require('./modal/dataSchema');
 const cors = require('cors');
+require('dotenv').config()
 
 const app = express();
 app.use(express.json());
@@ -9,12 +10,15 @@ app.use(cors())
 
 // database connection 
 
-mongoose.connect("mongodb://localhost:27017/Task_3")
-.then((req,res)=>{
-    console.log("database connected");
-}).catch((req,res)=>{
-    console.log("some err happend in the database connection");
-})
+async function connectToDatabase() {
+    try {
+    await mongoose.connect(process.env.MONGO_URL);
+        console.log("Database connected");
+    } catch (error) {
+        console.log("Some error happened while connecting database", error);
+    }
+}
+connectToDatabase();
 
 // post request 
 
@@ -69,6 +73,6 @@ app.put("/updatePhone/:id",(req,res)=>{
     })
 })
 
-app.listen(8000,()=>{
+app.listen(process.env.PORT,()=>{
     console.log("Server Running");
 })
